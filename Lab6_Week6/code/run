@@ -1,0 +1,6 @@
+#!/bin/bash
+
+gcc main.c myMath.c -o main
+ls
+echo ----
+./main

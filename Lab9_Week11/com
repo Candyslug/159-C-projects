@@ -1,0 +1,5 @@
+#/!bin/bash
+
+
+gcc -Wall -Wextra -g main.c utils.c -o out
+#./out

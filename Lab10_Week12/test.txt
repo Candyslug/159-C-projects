@@ -1,0 +1,12 @@
+john 34 10.350
+dave 20 60.100
+sammy 40 20
+clyde 36 23.60
+john 34 10.350
+sammy 40 20
+john 34 10.350
+john 34 10.350
+sammy 40 20
+clyde 36 23.60
+clyde 36 23.60
+dave 20 60.100
