@@ -1,4 +1,0 @@
-#!/bin/bash
-
-gcc main.c utils.c -o main
-./main
