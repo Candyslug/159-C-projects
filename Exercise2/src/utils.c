@@ -4,7 +4,7 @@
 #include "stdio.h"
 #include "strings.h"
 
-
+// Function to get the input name from the user
 void GetNameInput(char *name) {
     printf("\nEnter Name:\n");
     char buff[255];
@@ -14,6 +14,7 @@ void GetNameInput(char *name) {
     strcpy(name, buff);
 }
 
+// Displays the menu and awaits a response from the user
 int PromptUserMenu() {
     // Returns a valid response for the menu selection
     printf("\n1. Enter name\n");
@@ -36,6 +37,7 @@ int PromptUserMenu() {
     return response;
 }
 
+// Responds to the user's choice in the menu
 void HandleMenuResponse(Customer *customers, char *name, int n) {
     printf("\n");
     int i = GetCustomerIDbyName(name, customers, n);
@@ -48,6 +50,9 @@ void HandleMenuResponse(Customer *customers, char *name, int n) {
     }
 }
 
+// Main loop of the program
+// When this function ends, the main loop is broken
+// And the program will continue in the main function
 void HandleMenuLoop(Customer *customers, int n) {
     int running = 1;
     while (running == 1) {

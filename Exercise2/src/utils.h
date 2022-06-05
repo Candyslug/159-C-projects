@@ -10,7 +10,7 @@ void HandleMenuLoop(Customer *customers, int n);
 // promptUserMenu()
 
 // not declared here because
-// they are only called locally in the program
+// they are only called here, locally in the program
 // (only within utils.c)
 
 #endif

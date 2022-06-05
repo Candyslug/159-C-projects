@@ -5,6 +5,9 @@
 #include "strings.h"
 #include "stdlib.h"
 
+// Will count the number of unique entries in the file
+// Unique: different people,
+// Duplicate names may appear and should be skipped
 int CountUniqueEntries(const char *fileName) {
     FILE *f = fopen(fileName, "r");
     if (f == NULL) {
@@ -47,6 +50,8 @@ int CountUniqueEntries(const char *fileName) {
     return name_i;
 }
 
+// Function for debug purposes
+// Displays all the customers and the relevant information
 void DisplayCustomers(Customer *customers, int n) {
     for (int i = 0; i < n; i++) {
         printf("\nCustomer %i: \"%s\"\n", i, customers[i].name);
@@ -72,6 +77,8 @@ void DisplayCustomers(Customer *customers, int n) {
     }
 }
 
+// Searches the list for the customer's name
+// returns the index of the customer's appearance in the list
 int GetCustomerIDbyName(const char* name, Customer *customers, int n) {
     for (int i = 0; i < n; i++) {
         if (!strcmp(customers[i].name, name)) {
@@ -87,6 +94,7 @@ int GetCustomerIDbyName(const char* name, Customer *customers, int n) {
     return -1;
 }
 
+// Reads the input file and loads the customers into the array
 void LoadCustomers(const char *fileName, Customer *customers, int n) {
     FILE *f = fopen(fileName, "r");
     if (f == NULL) {

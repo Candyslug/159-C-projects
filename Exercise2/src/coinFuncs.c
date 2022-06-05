@@ -1,9 +1,7 @@
-
 #include "defs.h"
-
 #include "stdio.h"
 
-
+// Loop through each customer and compute the correct change coins
 void CalculateChange(Customer *customers, int n) {
     for (int customer_i = 0; customer_i < n; customer_i++) {
         int aud = customers[customer_i].money[0];
