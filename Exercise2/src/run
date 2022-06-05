@@ -1,4 +1,0 @@
-#!/bin/bash
-
-gcc main.c customerFuncs.c coinFuncs.c utils.c -o lol
-./lol
