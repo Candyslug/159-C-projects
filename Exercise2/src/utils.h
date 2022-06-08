@@ -4,6 +4,7 @@
 #include "defs.h"
 
 void HandleMenuLoop(Customer *customers, int n);
+void FormatString(const char *s, char *target);
 
 // getNameInput(char*), 
 // promptUserMenu(), 

@@ -1,8 +1,11 @@
 #include "defs.h"
 #include "customerFuncs.h"
+#include "utils.h"
 
 #include "stdio.h"
 #include "strings.h"
+#include "ctype.h"
+#include "stdlib.h"
 
 // Function to get the input name from the user
 void GetNameInput(char *name) {
@@ -11,7 +14,9 @@ void GetNameInput(char *name) {
     printf("> ");
     scanf("%s", buff);
     fflush(stdin);
-    strcpy(name, buff);
+    char formatted[strlen(buff)];
+    FormatString(buff, formatted);
+    strcpy(name, formatted);
 }
 
 // Displays the menu and awaits a response from the user
@@ -72,4 +77,16 @@ void HandleMenuLoop(Customer *customers, int n) {
             HandleMenuResponse(customers, name, n);
         }
     }
+}
+
+// Format strings so they all start with a capital letter
+// and each following letter is lowercase
+void FormatString(const char *s, char *target) {
+    char *new = (char*) malloc (sizeof(char) * strlen(s));
+    for (int i = 0; i < strlen(s); ++i) {
+        new[i] = tolower((unsigned char) s[i]);
+    }
+    new[0] = toupper(new[0]);
+    strcpy(target, new);
+    free(new);
 }

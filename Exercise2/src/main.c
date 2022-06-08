@@ -11,6 +11,9 @@
 
 int main() {
 
+    // The program will only read the first 10 lines in coins.txt.
+
+
     // Declare the name of the input file
     const char *fileName = "coins.txt";
     // Count the number of unique customer names in that file
@@ -26,7 +29,6 @@ int main() {
 
     // Load the customers from the input file and copy them into the array
     LoadCustomers(fileName, customers, n);
-
     // Compute the correct change coins for each customer in the array
     CalculateChange(customers, n);
 

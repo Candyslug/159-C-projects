@@ -1,10 +1,15 @@
 #include "defs.h"
 #include "stdio.h"
+#include "stdlib.h"
 
 // Loop through each customer and compute the correct change coins
 void CalculateChange(Customer *customers, int n) {
     for (int customer_i = 0; customer_i < n; customer_i++) {
         int aud = customers[customer_i].money[0];
+        if (aud % 5 != 0) {
+            printf("[CalculateChange] Error: %s's AU$ amount (%i) not divisible by 5. (Invalid amount)\n", customers[customer_i].name, aud);
+            exit(EXIT_FAILURE);
+        }
         while (aud > 0) {
             if (aud >= 50) {
                 customers[customer_i].audChange[0] += 1;
@@ -51,7 +56,7 @@ void CalculateChange(Customer *customers, int n) {
             }
             if (usd >= 1) {
                 customers[customer_i].usdChange[4] += 1;
-                aud -= 1;
+                usd -= 1;
                 continue;
             }
         }

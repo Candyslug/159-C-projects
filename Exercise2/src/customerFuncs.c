@@ -1,9 +1,11 @@
 
 #include "defs.h"
+#include "utils.h"
 
 #include "stdio.h"
 #include "strings.h"
 #include "stdlib.h"
+//#include "ctype.h"
 
 // Will count the number of unique entries in the file
 // Unique: different people,
@@ -17,13 +19,18 @@ int CountUniqueEntries(const char *fileName) {
 
     int amount;
     char curr[255];
-    char name[255];
+    char name_b[255];
     char names[255][10];
     int name_i = 0;
-    while (fscanf(f, "%s  %d cents in %s", name, &amount, curr) != EOF) {
+    int line = 0;
+    while (fscanf(f, "%s  %d cents in %s", name_b, &amount, curr) != EOF) {
 #ifdef DEBUG
-        printf("\n\nTrying %s....\n", name);
+        printf("\n\nTrying %s....\n", name_b);
 #endif
+        char name[255];
+        FormatString(name_b, name);
+
+        // Loop through the array of found names
         for (int i = 0; i < 10; i++) {
             if (!strcmp(names[i], name)) {
 #ifdef DEBUG
@@ -36,15 +43,22 @@ int CountUniqueEntries(const char *fileName) {
                 printf("    > Name %s not found in names.\n", name);
                 printf("    > Adding %s to names[%i].\n", name, name_i);
 #endif
+                
+
                 strcpy(names[name_i], name);
                 name_i++;
                 break;
             }
         }
+        line++;
     } 
     fclose(f);
+    if (line > 10) {
+        printf("[CountUniqueEntries] Error: Invalid number of lines (%i) in %s.\n", line, fileName);
+        exit(EXIT_FAILURE);
+    }
     if (name_i <= 0 || name_i > 10) {
-        printf("[CountUniqueEntries] Error: Invalid number of entries %i in %s.\n", name_i, fileName);
+        printf("[CountUniqueEntries] Error: Invalid number of entries (%i) in %s.\n", name_i, fileName);
         exit(EXIT_FAILURE);
     }
     return name_i;
@@ -103,15 +117,22 @@ void LoadCustomers(const char *fileName, Customer *customers, int n) {
     }
 
     // buffers
-    char name[255];
-    int amount;
+    char name_b[255];
+    int amount = 0;
     char curr[255];
 
     int lastI = 0;
     int curCur = 0;
     int lineNumber = 0;
 
-    while (fscanf(f, "%s  %d cents in %s", name, &amount, curr) != EOF) {
+    while (fscanf(f, "%s  %d cents in %s", name_b, &amount, curr) != EOF) {
+
+        if (amount < 0) {
+            printf("[LoadCustomers] Error: Invalid amount of currency (%i) detected on line %i in %s.\n", amount, lineNumber, fileName);
+            exit(EXIT_FAILURE);
+        }
+        char name[255];
+        FormatString(name_b, name);
         if (!strcmp(curr, "AU$"))
             curCur = 0;
         else if (!strcmp(curr, "US$"))
@@ -171,7 +192,7 @@ void DisplayCustomerChange(Customer customer) {
             customer.money[1]);
 
         printf("\nChange:\n");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             if (customer.usdChange[i] > 0) {
                 printf("%i cents: %i\n", USDcoins[i], customer.usdChange[i]);
             }
@@ -186,7 +207,7 @@ void DisplayCustomerChange(Customer customer) {
             customer.money[2]);
 
         printf("\nChange:\n");
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 6; i++) {
             if (customer.eurChange[i] > 0) {
                 printf("%i cents: %i\n", EURcoins[i], customer.eurChange[i]);
             }
